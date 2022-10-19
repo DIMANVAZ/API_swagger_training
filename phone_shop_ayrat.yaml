@@ -1,0 +1,35 @@
+openapi: 3.0.1
+info:
+  title: API для магазина электроники
+  description: блок description в info
+  version: 1.0.0
+servers:
+  - url: 'https://e-shop.com'
+paths:
+  /phones:
+    get:
+      summary: Покажет список телефонов
+      description: бла-бла в description
+      responses:
+        '200':
+          description: OK 200 гет
+    post:
+      summary: Добавить телефон
+      description: бла-бла в POST description
+      responses:
+        '200':
+          description: OK 200 пост
+  /laptops:
+    get:
+      summary: Покажет список ноутбуков
+      description: бла-бла в description
+      responses:
+        '200':
+          description: OK 200 гет
+    post:
+      summary: Добавить ноутбук
+      description: бла-бла в POST description
+      responses:
+        '200':
+          description: OK 200 пост
+
