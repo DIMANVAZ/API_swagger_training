@@ -2,10 +2,15 @@ const express = require('express');
 const isItemValid = require('./validator.js');
 const app = express();
 
-const phones = {'1':{brand: 'Samsung', model: 'S10E',price: 50000,sim: 2},
-                '2':{brand: 'Apple', model: 'Iphone_14',price: 60000,sim: 1}};
-const laptops = {'1':{brand: 'HP', model: 'Pavilion', price: 70000, diagonal: 15.6},
-                 '2':{brand: 'Apple', model:' MacBook Air', price: 80000, diagonal: 14}};
+const phones = {
+    '1':{brand: 'Samsung', model: 'S10E', price: 50000, sim: 2, condition: 'new'},
+    '2':{brand: 'Apple', model: 'Iphone_14', price: 60000, sim: 1, condition: 'used'}
+    };
+const laptops = {
+    '1':{brand: 'HP', model: 'Pavilion', price: 70000, diagonal: 15.6, condition: 'broken'},
+    '2':{brand: 'Apple', model:' MacBook Air', price: 80000, diagonal: 14, condition: 'new'}
+};
+
 const allGoods = {phones,laptops};
 
 app.use(express.urlencoded({ extended:false }));
@@ -18,6 +23,11 @@ function addNewItem(newItem,category){
     } return false;
 }
 
+app.get('/', (req, res)=>{
+    res.status(200);
+    res.end(JSON.stringify(allGoods));
+})
+
 app.get('/:category',(req,res) => {
   const category = req.params.category;
   if(allGoods[category]) {
@@ -26,7 +36,7 @@ app.get('/:category',(req,res) => {
       return;
   } else {
       res.status(404);
-      res.end('No such category: ' + category);
+      res.end('Ошибка в адресе (нет такой категории): ' + category);
   }
 })
 
@@ -34,7 +44,7 @@ app.post('/:category',(req,res) => {
    const category = req.params.category;
    if(!allGoods[category]) {
       res.status(404);
-      res.end('No such category: ' + category);
+      res.end('Ошибка в адресе (нет такой категории): ' + category);
       return;
    }
    //console.log(req.body)
@@ -45,7 +55,7 @@ app.post('/:category',(req,res) => {
        return;
    } else {
        res.status(400);
-       res.end("Something wrong with POST data")
+       res.end("Ошибка при добавлении предмета. Переданы некорректные данные");
    }
 })
 

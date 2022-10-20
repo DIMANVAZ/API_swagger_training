@@ -1,0 +1,209 @@
+openapi: 3.0.1
+info:
+  title: API для магазина электроники
+  description: Tренировочное АПИ для просмотра товаров "ноутбуки" и "телефоны" с возможностью добавлять товары (метод POST)
+  version: 1.0.0
+  contact:
+    name: Ayrat Sungatullin
+    url: https://github.com/DIMANVAZ/API_swagger_training
+    email: dimanvaz04@gmail.com
+servers: 
+  - url: http://localhost:8080/
+    description: основной сервер на локалхосте
+paths:
+  /:
+    get:
+      description: Получить JSON-список всех товаров
+      tags:
+        - Все товары
+      responses: 
+        '200':
+          description: Успешно
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                  $ref: "#/components/schemas/allGoods"
+          
+  /phones:
+    get:
+      description: Получить JSON-список телефонов
+      tags:
+        - Телефоны
+      responses:
+        '200':
+          description: Список телефонов
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                  $ref: "#/components/schemas/phones"
+    post:
+      description: Добавить телефон
+      tags:
+        - Телефоны
+      requestBody:
+        required: true
+        content: 
+          application/json;charset=UTF-8:
+            schema:
+              $ref: "#/components/schemas/phone"
+      responses:
+        '201':
+          description: Успешно добавлен
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                  $ref: "#/components/schemas/phones"
+        '404':
+          description: Ошибка в адресе (нет такой категории)
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+        '400':
+          description: Ошибка при добавлении предмета. Переданы некорректные данные
+          content: 
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+          
+  /laptops:
+    get:
+      description: Получить JSON-список ноутбуков
+      tags:
+        - Ноутбуки
+      responses:
+        '200':
+          description: Список телефонов
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: "#/components/schemas/laptops"
+    post:
+      description: Добавить ноутбук
+      tags:
+        - Ноутбуки
+      requestBody:
+        required: true
+        content: 
+          application/json;charset=UTF-8:
+            schema:
+              $ref: "#/components/schemas/laptop"
+      responses:
+        '201':
+          description: Успешно добавлен
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                  $ref: "#/components/schemas/laptops"
+        '404':
+          description: Ошибка в адресе (нет такой категории)
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+        '400':
+          description: Ошибка при добавлении предмета. Переданы некорректные данные
+          content: 
+            application/json;charset=UTF-8:
+              schema:
+                type: string
+    
+components:
+  schemas:
+    phone:
+      type: object
+      required:
+      - brand
+      - model
+      - price
+      - sim
+      - condition
+      properties:
+        brand:
+          description: производитель
+          type: string
+          example: Samsung
+        model:
+          description: модель
+          type: string
+          example: Galaxy S10
+        price:
+          description: цена
+          type: number
+          example: 50 000  
+        sim:
+          description: количество сим-карт
+          type: number
+          example: 2  
+        condition:
+          description: состояние товара
+          type: string
+          enum:
+           - new
+           - used
+           - broken
+          example: new
+    laptop:
+      type: object
+      required:
+      - brand
+      - model
+      - price
+      - diagonal
+      - condition
+      properties:
+        brand:
+          description: производитель
+          type: string
+          example: Lenovo
+        model:
+          description: модель
+          type: string
+          example: ThinkPad
+        price:
+          description: цена
+          type: number
+          example: 50 000  
+        diagonal:
+          description: диагональ экрана
+          type: number
+          example: 15.6  
+        condition:
+          description: состояние товара
+          type: string
+          enum:
+           - new
+           - used
+           - broken
+          example: new
+    allGoods:
+      type: object
+      properties:
+        phones:
+          description: телефоны
+          type: object
+          example:
+            id:
+              brand: 'Oppo' 
+              model: 'Y33S' 
+              price: 40000 
+              sim: 2
+              condition: 'new'
+        laptops:
+          description: ноутбуки
+          type: object
+          example: 
+            id:
+              brand: 'HP' 
+              model: 'Pavilion' 
+              price: 70000 
+              diagonal: 15.6 
+              condition: 'broken'
+    phones:
+      type: object
+      # properties:
+    laptops:
+    
+    
+    
+    

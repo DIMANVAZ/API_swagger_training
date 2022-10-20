@@ -8,12 +8,14 @@ const allSchemasDrafts = {
         model: string().required(),
         price: number().required().positive().integer(),
         sim: number().required().positive().integer(),
+        condition: string().required()
     },
     notebooks: {
         brand: string().required(),
         model: string().required(),
         price: number().required().positive().integer(),
         diagonal: number().required().positive(),
+        condition: string().required()
     }
 }
 
