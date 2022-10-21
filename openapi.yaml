@@ -71,10 +71,10 @@ paths:
       description: Получить JSON-список ноутбуков
       tags:
         - Ноутбуки
-      responses:
+      responses: 
         '200':
-          description: Список телефонов
-          content:
+          description: Успешно
+          content: 
             application/json;charset=UTF-8:
               schema:
                 $ref: "#/components/schemas/laptops"
@@ -176,34 +176,24 @@ components:
            - used
            - broken
           example: new
+    phones:
+      type: array
+      items:
+        $ref: "#/components/schemas/phone"
+    laptops:
+      type: array
+      items:
+        $ref: "#/components/schemas/laptop"
     allGoods:
       type: object
       properties:
         phones:
-          description: телефоны
-          type: object
-          example:
-            id:
-              brand: 'Oppo' 
-              model: 'Y33S' 
-              price: 40000 
-              sim: 2
-              condition: 'new'
+          type: array
+          items:
+            $ref: "#/components/schemas/phone"
         laptops:
-          description: ноутбуки
-          type: object
-          example: 
-            id:
-              brand: 'HP' 
-              model: 'Pavilion' 
-              price: 70000 
-              diagonal: 15.6 
-              condition: 'broken'
-    phones:
-      type: object
-      # properties:
-    laptops:
-    
-    
+          type: array
+          items:
+            $ref: "#/components/schemas/laptop"
     
     

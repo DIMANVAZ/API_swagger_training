@@ -1,4 +1,4 @@
-const {date, number, string}  = require('yup');
+const {number, string}  = require('yup');
 
 const yup = require('yup');
 

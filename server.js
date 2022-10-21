@@ -2,14 +2,15 @@ const express = require('express');
 const isItemValid = require('./validator.js');
 const app = express();
 
-const phones = {
-    '1':{brand: 'Samsung', model: 'S10E', price: 50000, sim: 2, condition: 'new'},
-    '2':{brand: 'Apple', model: 'Iphone_14', price: 60000, sim: 1, condition: 'used'}
-    };
-const laptops = {
-    '1':{brand: 'HP', model: 'Pavilion', price: 70000, diagonal: 15.6, condition: 'broken'},
-    '2':{brand: 'Apple', model:' MacBook Air', price: 80000, diagonal: 14, condition: 'new'}
-};
+const phones = [
+    {id: 1, brand: 'Samsung', model: 'S10E', price: 50000, sim: 2, condition: 'new'},
+    {id: 2, brand: 'Apple', model: 'Iphone_14', price: 60000, sim: 1, condition: 'used'}
+    ]
+
+const laptops = [
+    {id: 1, brand: 'HP', model: 'Pavilion', price: 70000, diagonal: 15.6, condition: 'broken'},
+    {id: 2, brand: 'Apple', model:' MacBook Air', price: 80000, diagonal: 14, condition: 'new'}
+];
 
 const allGoods = {phones,laptops};
 
@@ -17,8 +18,9 @@ app.use(express.urlencoded({ extended:false }));
 
 function addNewItem(newItem,category){
     if(isItemValid(newItem,category)){
-        const counter = Object.keys(allGoods[category]).length + 1;
-        allGoods[category][counter] = newItem;
+        const newId = Object.keys(allGoods[category]).length + 1;
+        newItem.id = newId;
+        allGoods[category].push(newItem);
         return true;
     } return false;
 }
