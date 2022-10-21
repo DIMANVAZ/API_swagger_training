@@ -10,7 +10,7 @@ const allSchemasDrafts = {
         sim: number().required().positive().integer(),
         condition: string().required()
     },
-    notebooks: {
+    laptops: {
         brand: string().required(),
         model: string().required(),
         price: number().required().positive().integer(),
@@ -22,5 +22,10 @@ const allSchemasDrafts = {
 module.exports = function(newItem, category) {
     const shape = allSchemasDrafts[category];
     const suitableSchema = yup.object().shape(shape);
-    return suitableSchema.isValidSync(newItem);
+    try {
+        return suitableSchema.validateSync(newItem, {stripUnknown: true});
+    } catch(e){
+        return false;
+    }
+    //return suitableSchema.isValidSync(newItem);
 }
